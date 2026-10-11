@@ -1,0 +1,11 @@
+# Learning checklist
+- [ ] Level 1: run all three hello targets; identify module, package, target, and label.
+- [ ] Level 2: use query, deps, cquery, and aquery.
+- [ ] Level 3: intentionally break an assertion, observe failure, then fix it.
+- [ ] Level 4: compare --jobs=1 and --jobs=auto with profiles.
+- [ ] Level 5: build twice, edit one file, inspect incremental work.
+- [ ] Level 6: explain local cache vs remote cache; use only an authorized endpoint.
+- [ ] Level 7: open a pull request and inspect GitHub Actions.
+- [ ] Level 8: build and inspect the release bundle.
+- [ ] Level 9: build and run the Docker image.
+- [ ] Level 10: explain CAS, action cache, REAPI, workers, and hermeticity.

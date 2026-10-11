@@ -1,0 +1,12 @@
+common --enable_bzlmod
+build --color=yes
+build --show_result=10
+# Independent actions are scheduled in parallel by default.
+# Compare: bazel build //... --jobs=1 vs --jobs=auto
+# Local action/output caching is enabled by default.
+# Optional remote cache (configure a real authorized endpoint first):
+# build:remote --remote_cache=grpcs://YOUR_CACHE_ENDPOINT
+# build:remote --remote_upload_local_results
+# Optional remote execution (requires a compatible provisioned service):
+# build:remote-exec --remote_executor=grpcs://YOUR_EXECUTOR_ENDPOINT
+# build:remote-exec --remote_cache=grpcs://YOUR_CACHE_ENDPOINT

@@ -1,0 +1,67 @@
+name: Bazel CI
+
+"on":
+  # Run CI for every branch, not only main/master.
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bazel-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v4
+
+      - name: Set up Java for Bazel Java targets
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Bazelisk and Bazel cache
+        uses: bazel-contrib/setup-bazel@0.15.0
+        with:
+          bazelisk-cache: true
+
+      - name: Show Bazel version
+        run: bazel --version
+
+      - name: Build all targets
+        run: bazel build //...
+
+      - name: Run all tests
+        run: bazel test //... --test_output=errors
+
+      - name: Smoke-test the three examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          bazel run //cpp:hello
+          bazel run //java:hello
+          bazel run //python:hello
+
+      - name: Upload Bazel test logs if a step fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bazel-test-logs-${{ runner.os }}
+          path: bazel-testlogs/**/test.log
+          if-no-files-found: ignore
+          retention-days: 7
