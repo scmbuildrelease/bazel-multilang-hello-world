@@ -93,9 +93,22 @@ Produces `bazel-bin/release_bundle.tar.gz` containing the three example programs
 ## Level 9 — Docker
 Docker Desktop is optional.
 ```bash
-bazel build //cpp:hello
-docker build -f deploy/Dockerfile -t bazel-hello:local .
+./deploy/deploy.sh
 docker run --rm bazel-hello:local
+```
+
+### Publish a GitHub Package
+Publishing the release bundle downloads a release asset; publishing a package is a separate step. This repository publishes its C++ example as a container package at `ghcr.io/OWNER/REPOSITORY`.
+
+1. Create and publish a GitHub release with a tag such as `v1.0.0`.
+2. The **Publish container package** workflow runs automatically and pushes both `v1.0.0` and `latest` image tags.
+3. If the release already existed when the workflow was added, open **Actions** → **Publish container package** → **Run workflow**, and enter that existing tag.
+
+After it succeeds, find the package in the repository's right-hand **Packages** section. Pull and run it with:
+
+```bash
+docker pull ghcr.io/OWNER/REPOSITORY:v1.0.0
+docker run --rm ghcr.io/OWNER/REPOSITORY:v1.0.0
 ```
 
 ## Level 10 — Remote execution
