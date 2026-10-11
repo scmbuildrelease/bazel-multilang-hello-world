@@ -1,5 +1,22 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+
 exports_files(["hello.py"])
 
-py_binary(name = "hello", srcs = ["hello.py"], main = "hello.py")
-py_test(name = "hello_test", srcs = ["hello.py", "hello_test.py"], main = "hello_test.py", deps = [":hello"],)
+py_library(
+    name = "hello_lib",
+    srcs = ["greeting.py"],
+    imports = ["."],
+)
 
+
+py_binary(
+    name = "hello",
+    srcs = ["hello.py"],
+    deps = [":hello_lib"],
+)
+
+py_test(
+    name = "hello_test",
+    srcs = ["hello_test.py"],
+    deps = [":hello_lib"],
+)
