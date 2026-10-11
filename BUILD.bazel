@@ -8,7 +8,7 @@ filegroup(
         "cpp/*.h",
         "java/*.java",
         "python/*.py",
-    ]),
+      ], allow_empty = True),
 )
 
 genrule(
