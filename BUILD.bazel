@@ -3,7 +3,12 @@ exports_files(["requirements.txt"])
 
 filegroup(
     name = "all_sources",
-    srcs = glob(["cpp/**/*.cc", "cpp/**/*.h", "java/**/*.java", "python/**/*.py"]),
+    srcs = glob([
+        "cpp/*.cc",
+        "cpp/*.h",
+        "java/*.java",
+        "python/*.py",
+    ]),
 )
 
 genrule(
