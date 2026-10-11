@@ -1,5 +1,10 @@
 java_library(name = "hello_lib", srcs = ["Hello.java"])
-java_binary(name = "hello", main_class = "com.example.hello.Hello", runtime_deps = [":hello_lib"])
+java_binary(
+    name = "hello",
+    main_class = "com.example.hello.Hello",
+    runtime_deps = [":hello_lib"],
+    visibility = ["//visibility:public"],
+)
 java_test(
     name = "hello_test",
     srcs = ["HelloTest.java"],
