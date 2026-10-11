@@ -15,7 +15,6 @@ genrule(
     name = "release_bundle",
     srcs = ["//cpp:hello", "//java:hello_deploy.jar", "//python:hello.py"],
     outs = ["release_bundle.tar.gz"],
-    tools = ["//cpp:hello", "//java:hello_deploy.jar"],
     cmd = "mkdir -p $(@D)/release_bundle/cpp $(@D)/release_bundle/java $(@D)/release_bundle/python && " +
           "cp $(location //cpp:hello) $(@D)/release_bundle/cpp/hello && " +
           "cp $(location //java:hello_deploy.jar) $(@D)/release_bundle/java/hello.jar && " +
