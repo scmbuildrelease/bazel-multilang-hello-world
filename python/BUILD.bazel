@@ -1,19 +1,5 @@
 exports_files(["hello.py"])
 
+py_binary(name = "hello", srcs = ["hello.py"], main = "hello.py")
+py_test(name = "hello_test", srcs = ["hello.py", "hello_test.py"], main = "hello_test.py", deps = [":hello"],)
 
-py_library(
-    name = "hello",
-    srcs = ["hello.py"],
-)
-
-py_test(
-    name = "hello_test",
-    srcs = ["hello_test.py"],
-    deps = [":hello"],
-)
-
-py_binary(
-    name = "hello",
-    srcs = ["hello.py"],
-    main = "hello.py",
-)
